@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class FlightBooking {
@@ -12,9 +17,20 @@ public class FlightBooking {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	
-	private String flightName;
+	@NotNull
+	@Size(min=2, message="Flight name should have atleast 2 characters")
+    private String flightName;
+	
+	@NotNull
+	@Min(1)
 	private double price;
+	
+	@NotNull
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private String fromDate;
+	
+	@NotNull
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private String toDate;
 	
 	public FlightBooking() {}
